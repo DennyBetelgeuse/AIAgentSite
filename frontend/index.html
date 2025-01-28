@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/gif/png/" href="assets/head1.png">
+    <title> имя сайта </title>
+    <style> /* вставте сюда название вашего сайта, которе будет отображаться на вкладке */
+        body {
+            font-family: "Space Mono";
+            margin: 0;
+            background: url('assets/background.png') no-repeat center center fixed; /* добавте в папку "assets" картинку (.png) или гифку (.gif) с названием "background", чтобы разместить на сайте фон. тоже самое относится ко всем другим картинкам на сайте. */
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #console-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 2000px;
+            position: relative;
+            margin-top: 5%;
+        }
+        .side-image {
+            width: 20%;
+            height: auto;
+        }
+        #console {
+            flex: 1;
+            height: 450px;
+            transform: translate(0%, -5%);
+            background-color: #000000;
+            border: 3px solid #8615a0; /* цвета можете сменить на те которые вы захотите */
+            border-radius: 10px;
+            padding: 10px;
+            overflow-y: auto;
+            font-family: monospace;
+            color: aliceblue;
+            position: relative;
+            min-width: 60%;
+        }
+        #output {
+            height: calc(100% - 30px); /* Leave space for input */
+            overflow-y: auto;
+            font-family: "Space Mono";
+            display: block;
+        }
+        #output div {
+            margin-bottom: 8px; /* Add spacing between each line */
+            white-space: pre-wrap; /* Preserve spacing and line breaks */
+        }
+        #input {
+            width: 99%;
+            background-color: #121212;
+            color: #ffffff;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            font-family: "Space Mono";
+        }
+        #start-button {
+            width: 200px;
+            height: 50px;
+            background-color: transparent;
+            color: #8615a0;
+            border: none;
+            border-radius: 5px;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 50vh;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            font-family: "Space Mono";
+        }
+        #socials {
+            display: flex;
+            position: relative;
+            transform: translate(0%, -35%);
+            top: 50px;
+            justify-content: center;
+            gap: 75px;
+        }
+        .social-icon {
+            width: 90%;
+            height: 90%;
+            cursor: pointer;
+        }
+        .user-input {
+            color: #8615a0; /* User input text in red */
+            font-size: 1.05rem;
+        }
+        .animated-button {
+            background-color: #8615a0;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-family: 'Space Mono';
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .animated-button:hover {
+            background-color: #8615a0; 
+            transform: scale(1.1);
+        }
+
+        .animated-button:active {
+            transform: scale(0.9);
+        }
+
+        #output a {
+            color: inherit; /* Match the text color of the parent element */
+            cursor: pointer; /* Optional: Keep the pointer cursor for clarity */
+        }
+        @media (max-width: 768px) {
+            .side-image {
+                display: none; /* Hide side images on smaller screens */
+            }
+            #console-container {
+                gap: 10px; /* Reduce gap on smaller screens */
+            }
+            #socials {
+                display: flex;
+                position: relative;
+                top: 3vh;
+                justify-content: center;
+                gap: 5vh;
+            }
+            .social-icon {
+                width: 20vw;
+                height: 20vw;
+                cursor: pointer;
+            }
+            #contract-address-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 20px;
+                flex-wrap: wrap; /* Allow wrapping on smaller screens */
+                flex-direction: column; /* Stack the elements vertically on mobile */
+            }
+            #contract-address {
+                background-color: #121212;
+                color: #ffffff;
+                padding: 5px 10px;
+                border-radius: 5px;
+                font-family: 'Space Mono';
+                width: 90vw;
+                font-size: 13.5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="contract-address-container" style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+        <script>
+            const CA = "contract address" /* вставте ваш адрес контракта после его создания и он автоматически подствится во все части кода как например в ссылках*/
+        </script>
+        <span id="contract-address" style="background-color: #121212; color: #ffffff; padding: 5px 10px; border-radius: 5px; font-family: 'Space Mono';">
+             
+        </span>
+        <button id="copy-button" class="animated-button" style="margin-left: 10px;">
+            Copy
+        </button>
+    </div>
+
+    <div id="console-container">
+        <img src="assets/sideimg1.png" alt="Side Image 1" class="side-image"> 
+        <div id="console"> 
+            <div id="output"></div>
+            <input id="input" type="text" placeholder="Enter command..." style="display: none;">
+        </div>
+        <img src="assets/sideimg2.png" alt="Side Image 2" class="side-image">
+    </div>
+    <button id="start-button">START</button>
+        
+    <div id="socials">
+        <img src="assets/tg_logo.png" alt="Social 1" class="social-icon" onclick="window.open('https://t.me/ссылка_на_тг', '_blank');">
+        <img src="assets/x_logo.png" alt="Social 2" class="social-icon" onclick="window.open('https://x.com/ссылка_на_твиттер', '_blank');">
+        <img src="assets/pf_logo.png" alt="Social 3" class="social-icon" onclick="window.open(`https://pump.fun/${CA}`, '_blank');">
+    </div> 
+
+    <script>
+        const copyButton = document.getElementById('copy-button');
+        const contractAddress = document.getElementById('contract-address');
+
+        copyButton.addEventListener('click', () => {  
+            // Copy the text to the clipboard
+            navigator.clipboard.writeText(CA).then(() => {
+                // Change button text and style after copying
+                copyButton.textContent = "Copied!";
+                copyButton.classList.add("copied");
+    
+                // Revert to the original state after 1 second
+                setTimeout(() => {
+                    copyButton.textContent = "Copy";
+                    copyButton.classList.remove("copied");
+                }, 1000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+
+        const consoleDiv = document.getElementById('console');
+        const startButton = document.getElementById('start-button');
+        const output = document.getElementById('output');
+        const input = document.getElementById('input');
+        const userSeed = Math.floor(Math.random() * 1000000000);
+
+        let isSoundOn = true;
+        let isChatMode = false;
+        let isTyping = false;
+
+        // Predefined commands and responses
+        const commands = {
+            "/chat": "",
+            "/help": 
+                '/help -       get all available commands\n' +
+                "/chat -       talk with AI agent\n" +
+                "/socials -    our social media pages (x, tg, dex, pf, ca)\n",
+            "/socials":
+                "X -           <a href='https://x.com/example' target='_blank'>https://x.com/example</a>\n" +
+                "TG -          <a href='https://t.me/example_Portal' target='_blank'>https://t.me/example_Portal</a>\n" +
+                `DEX -         <a href='https://dexscreener.com/${CA}' target='_blank'>https://dexscreener.com/${CA}</a>\n` +
+                `PF -          <a href='https://pump.fun/${CA}' target='_blank'>https://pump.fun/${CA}</a>\n` +
+                `CA -          ${CA}\n`,
+        };
+
+        // Typing effect function
+        function typeText(text, callback) {
+            isTyping = true;
+        
+            let i = 0;
+            function typeChar() {
+                if (i < text.length) {
+                    if (!isTyping) return;
+        
+                    const char = text[i++];
+                    // Safely append HTML characters
+                    if (char === '<') {
+                        const tagEnd = text.indexOf('>', i);
+                        const tag = text.substring(i - 1, tagEnd + 1);
+                        output.innerHTML += tag;
+                        i = tagEnd + 1;
+                    } else {
+                        output.innerHTML += char;
+                    }
+        
+                    output.scrollTop = output.scrollHeight;
+        
+                    // Play typing sound
+                    const typingSound = new Audio('https://qbma59vvwwd5vqfl.public.blob.vercel-storage.com/typing-sound-rw5TPSB3nw3WsBCOZfzoOhNNCVnSlZ.mp4');
+                    if (char !== ' ' && isSoundOn) typingSound.play();
+        
+                    let timeout = 0;
+                    switch (char) {
+                        case '.':
+                        case '?':
+                        case '!':
+                            timeout = 500;
+                            break;
+                        case ' ':
+                        case ',':
+                            timeout = 100;
+                            break;
+                        default:
+                            timeout = 50;
+                    }
+                    setTimeout(typeChar, timeout);
+                } else {
+                    isTyping = false;
+                    if (callback) callback();
+                }
+            }
+            typeChar();
+        }
+
+        // Start button click handler
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none';
+            input.style.display = 'block';
+                addResponseToOutput("I am AI agent. Let's talk! \nType '/help' to see available commands." /* напишите здесь что вам нужно сказать пользователю перед тем как он воспользуется терминалом */
+            );
+            input.focus();
+        });
+
+        function addResponseToOutput(response) {
+            const responseDiv = document.createElement('div');
+            responseDiv.innerHTML = response; // Use innerHTML to allow rendering links
+            output.appendChild(responseDiv);
+            output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
+        }      
+
+        function handleEvent(event) {
+            if (event.key === 'Enter') {
+                if (isTyping) {
+                    console.log("Already typing");
+                    isTyping = false;
+                    setTimeout(() => handleEvent(event), 600);
+                    return;
+                }
+        
+                const command = input.value.trim();
+                input.value = '';
+        
+                // Create a new div for user input and append it to output
+                const userInputDiv = document.createElement('div');
+                userInputDiv.innerHTML = `> <span class="user-input">${command}</span>`;
+                output.appendChild(userInputDiv);
+        
+                // Ensure the output scrolls to the latest entry
+                output.scrollTop = output.scrollHeight;
+        
+                // Handle chatbot mode
+                if (isChatMode) {
+
+                    if (command === "/chat") {
+                        if(isChatMode == false) {isChatMode = true} else {isChatMode = false; return};
+                    }
+
+                    fetch("https://example.com/chat", {  /* */
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ userSeed, message: command }),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            addResponseToOutput(data.response);
+                        });
+                    return;
+                }
+        
+                // Check commands and respond
+                if (command === "/chat") {
+                    isChatMode = true;
+                    addResponseToOutput("Chatbot mode activated. Type your message below. If you want to close chat, just send command /chat");
+                } else if (command === "/sound") {
+                    isSoundOn = !isSoundOn;
+                    addResponseToOutput(isSoundOn ? "Sound is on." : "Sound is off.");
+                } else if (commands[command]) {
+                    addResponseToOutput(commands[command]);
+                } else {
+                    addResponseToOutput("Unknown command. Type '/help' for a list of commands.");
+                }
+            }
+        }
+        
+
+        // Handle user input
+        input.addEventListener('keydown', (event) => {
+            handleEvent(event);
+        });
+        const addresscopy = document.getElementById('contract-address');
+        addresscopy.innerHTML=CA;
+    </script>
+</body>
+</html>
